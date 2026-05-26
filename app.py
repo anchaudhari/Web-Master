@@ -82,8 +82,10 @@ def get_ai_response(prompt, provider, token):
             messages = [
                 {"role": "system", "content": system_instruction},
                 {"role": "user", "content": prompt}
+                
+                
             ]
-            
+             
             # Utilizing serverless conversational API architecture
             response = client.chat.completions.create(
                 model=model_name,
@@ -148,7 +150,7 @@ code_content = st.text_area(
 # Update back into persistent tracker state
 st.session_state.editor_code = code_content
 
-col1, col2 = st.columns()
+col1, col2 = st.columns(2)
 with col1:
     run_button = st.button("▶ Run Python Code", type="primary", use_container_width=True)
 with col2:
