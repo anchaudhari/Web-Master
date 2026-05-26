@@ -33,8 +33,7 @@ else:
         "Select HF Model", 
         ["Qwen/Qwen3.5-4B-Instruct", "meta-llama/Llama-3.3-70B-Instruct"]
     )
-
-st.sidebar.markdown("---")
+    st.sidebar.markdown("---")
 
 # Initialize Session State Variables if they don't exist
 if "chat_history" not in st.session_state:
@@ -71,7 +70,7 @@ def get_ai_response(prompt, provider, token):
                 config=types.GenerateContentConfig(
                     system_instruction=system_instruction,
                     temperature=0.2,
-                )
+                           )
             )
             return response.text
             
@@ -83,9 +82,7 @@ def get_ai_response(prompt, provider, token):
                 {"role": "system", "content": system_instruction},
                 {"role": "user", "content": prompt}
             ]
-             try:
-            extracted_code = ai_reply.split("```python").split("```").strip()
-            st.session_state.editor_code = extracted_code
+            
             # Utilizing serverless conversational API architecture
             response = client.chat.completions.create(
                 model=model_name,
@@ -105,8 +102,7 @@ def get_ai_response(prompt, provider, token):
 for message in st.session_state.chat_history:
     with st.sidebar.chat_message(message["role"]):
         st.write(message["content"])
-
-# Handle Chat inputs
+        # Handle Chat inputs
 if chat_input := st.sidebar.chat_input("Ask for code snippets... (e.g., 'Write a quick sort algorithm')"):
     # Render user comment
     with st.sidebar.chat_message("user"):
@@ -168,7 +164,7 @@ if run_button:
     with contextlib.redirect_stdout(output_capture), contextlib.redirect_stderr(output_capture):
         try:
             # Execute code string inside a isolated global dictionary scope context
-            exec(code_content, {"__name__": "__main__"})
+                   exec(code_content, {"__name__": "__main__"})
         except Exception as runtime_error:
             # Print error logs directly into stream context if code compile crashes
             print(f"Runtime Error: {runtime_error}", file=sys.stderr)
