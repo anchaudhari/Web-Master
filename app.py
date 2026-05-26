@@ -82,10 +82,10 @@ def get_ai_response(prompt, provider, token):
             messages = [
                 {"role": "system", "content": system_instruction},
                 {"role": "user", "content": prompt}
-                
-                
             ]
-             
+             try:
+            extracted_code = ai_reply.split("```python").split("```").strip()
+            st.session_state.editor_code = extracted_code
             # Utilizing serverless conversational API architecture
             response = client.chat.completions.create(
                 model=model_name,
